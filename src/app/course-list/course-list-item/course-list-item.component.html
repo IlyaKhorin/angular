@@ -1,19 +1,30 @@
 <div class="card border-dark my-2">
   <div class="card-header">
-    <h5 class="text-muted">.Net</h5>
+    <div class="container ">
+      <div class="row ">
+        <h5 class="font flex-row ">{{courseItem.domain}}</h5>
+        <div class="flex-row ml-md-auto d-none d-md-flex"></div>
+        <div class="fa-align-right align-self-center text-muted">
+          <h6>Created: {{courseItem.creationDate.toLocaleString()}}</h6>
+        </div>
+      </div>
+
+    </div>
   </div>
   <div class="card-body">
     <div class="row">
       <div class="col-lg-10 col-sm-5">
-        <h4 class="card-title text-dark">cource</h4>
+        <h4 class="card-title text-dark">{{courseItem.title}}
+          <span class="text-muted"> ({{courseItem.duration}} min)</span>
+        </h4>
         <div class="card-text">
-          <p class="text-dark ">some info</p>
+          <p class="text-dark ">{{courseItem.description}}</p>
         </div>
       </div>
       <div class="col-lg-2 col-sm-5">
-        <button class="btn btn-primary btn-block waves-effect waves-light">Edit</button>
+        <button class="btn btn-primary btn-block ">Edit</button>
         <button class="btn btn-danger btn-block">Remove</button>
       </div>
     </div>
   </div>
-</div>  
+</div>
