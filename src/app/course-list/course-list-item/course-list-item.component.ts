@@ -16,11 +16,11 @@ export class CourseListItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  delete(){
+  deleteCourseItem(){
     this.onCourseDeleted.emit(this.courseItem);
   }
 
-  edit(){
+  editCourseItem(){
     console.log("item editing:", this.courseItem)
   }
 

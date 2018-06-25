@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ICourseListItem } from '../icourse-list-item';
-import { CourseListItem } from '../course-list-item';
-import { CourseDomain } from '../course-domain.enum';
 import { CourseService } from '../course.service';
 
 @Component({
@@ -20,21 +18,21 @@ export class CourseListComponent implements OnInit {
     this.courseItems = this.courseService.getCourseItems();
   }
 
-  setSearchQuery(searchQuery: string) {
-    this.searchQuery = searchQuery;
-  }
-
-  search() {
+  searchCourses() {
     console.log(this.searchQuery);
   }
 
-  delete(courseItem: ICourseListItem) {
-    console.log("Deleting item: ", courseItem);
+  deleteCourse(courseItem: ICourseListItem) {
+    console.log("Deleting item: id:", courseItem.id);
     this.courseItems.splice(this.courseItems.indexOf(courseItem), 1);
   }
 
-  create() {
+  createCourse() {
     console.log("Creating item");
+  }
+
+  loadMoreCourses(){
+    console.log("Loading more");
   }
 
 }
