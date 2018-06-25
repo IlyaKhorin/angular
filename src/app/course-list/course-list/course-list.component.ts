@@ -9,17 +9,12 @@ import { CourseService } from '../course.service';
 })
 export class CourseListComponent implements OnInit {
 
-  public searchQuery: string;
   public courseItems: ICourseListItem[] = [];
 
   constructor(private courseService: CourseService) { }
 
   ngOnInit() {
     this.courseItems = this.courseService.getCourseItems();
-  }
-
-  searchCourses() {
-    console.log(this.searchQuery);
   }
 
   deleteCourse(courseItem: ICourseListItem) {
