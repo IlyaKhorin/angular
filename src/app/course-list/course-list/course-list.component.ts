@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ICourseListItem } from '../icourse-list-item';
-import { CourseListItem } from '../course-list-item';
-import { CourseDomain } from '../course-domain.enum';
 import { CourseService } from '../course.service';
 
 @Component({
@@ -17,6 +15,19 @@ export class CourseListComponent implements OnInit {
 
   ngOnInit() {
     this.courseItems = this.courseService.getCourseItems();
+  }
+
+  deleteCourse(courseItem: ICourseListItem) {
+    console.log("Deleting item: id:", courseItem.id);
+    this.courseItems.splice(this.courseItems.indexOf(courseItem), 1);
+  }
+
+  createCourse() {
+    console.log("Creating item");
+  }
+
+  loadMoreCourses(){
+    console.log("Loading more");
   }
 
 }
