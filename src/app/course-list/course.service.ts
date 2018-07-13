@@ -6,7 +6,7 @@ import { ICourseListItem } from './icourse-list-item';
 @Injectable({
   providedIn: 'root'
 })
-export class CourseService {
+export class CourseService implements ICourseService {
 
   constructor() { }
   public getCourseItems(): ICourseListItem[] {
