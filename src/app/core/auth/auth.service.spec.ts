@@ -12,4 +12,8 @@ describe('AuthService', () => {
   it('should be created', inject([AuthService], (service: AuthService) => {
     expect(service).toBeTruthy();
   }));
+
+  it('should return user', inject([AuthService], (service: AuthService) => {
+    expect(service.getUser).not.toBeNull();
+  }));
 });
