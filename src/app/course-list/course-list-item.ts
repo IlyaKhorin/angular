@@ -9,6 +9,7 @@ export class CourseListItem implements ICourseListItem{
         public creationDate: Date,
         public duration: number,
         public description: string,
-        public domain: CourseDomain
+        public domain: CourseDomain,
+        public starred: boolean
     ){}
 }
