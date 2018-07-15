@@ -6,15 +6,10 @@ import { ICourseListItem } from '../icourse-list-item';
   templateUrl: './course-list-item.component.html',
   styleUrls: ['./course-list-item.component.css']
 })
-export class CourseListItemComponent implements OnInit {
+export class CourseListItemComponent {
   
   @Input()public courseItem:ICourseListItem;
   @Output()public onCourseDeleted: EventEmitter<ICourseListItem> = new EventEmitter<ICourseListItem>();
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
   deleteCourseItem(){
     this.onCourseDeleted.emit(this.courseItem);

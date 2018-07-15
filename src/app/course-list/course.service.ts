@@ -6,11 +6,13 @@ import { ICourseListItem } from './icourse-list-item';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CourseService {
 
-  constructor() { }
-  public getCourseItems(): ICourseListItem[] {
-    return [
+  private items:ICourseListItem[];
+
+  constructor() { 
+    this.items = [
       new CourseListItem(
         1,
         "Course 1",
@@ -19,7 +21,6 @@ export class CourseService {
         "course 1 description",
         CourseDomain.NET
       ),
-
       new CourseListItem(
         2,
         "Course 2",
@@ -37,5 +38,23 @@ export class CourseService {
         CourseDomain.CPP
       ),
     ];
+  }
+
+
+  public getCourseItems(): ICourseListItem[] {
+    return this.items;
+  }
+
+  public removeCourseItem(item:ICourseListItem) {
+     this.items.splice(this.items.indexOf(item), 1);
+  }
+
+  public addCourseItem(item:ICourseListItem) {
+  }
+
+  public editCourseItem(item:ICourseListItem) {
+  }
+
+  public loadMore() {
   }
 }

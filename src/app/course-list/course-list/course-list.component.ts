@@ -14,20 +14,28 @@ export class CourseListComponent implements OnInit {
   constructor(private courseService: CourseService) { }
 
   ngOnInit() {
-    this.courseItems = this.courseService.getCourseItems();
+    this.reloadItems();
   }
 
   deleteCourse(courseItem: ICourseListItem) {
     console.log("Deleting item: id:", courseItem.id);
-    this.courseItems.splice(this.courseItems.indexOf(courseItem), 1);
+    this.courseService.removeCourseItem(courseItem);
+    this.reloadItems();
   }
 
   createCourse() {
     console.log("Creating item");
+    this.courseService.addCourseItem(null);
+    this.reloadItems();
   }
 
   loadMoreCourses(){
     console.log("Loading more");
+    this.courseService.loadMore();
+    this.reloadItems();
   }
 
+  private reloadItems() {
+    this.courseItems = this.courseService.getCourseItems();
+  }
 }
