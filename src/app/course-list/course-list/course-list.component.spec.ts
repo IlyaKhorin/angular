@@ -18,7 +18,8 @@ describe('CourseListComponent', () => {
     new Date("2018/06/20"),
     20,
     "course 1 description",
-    CourseDomain.NET
+    CourseDomain.NET,
+    true
   ),
   new CourseListItem(
     2,
@@ -26,7 +27,8 @@ describe('CourseListComponent', () => {
     new Date("2018/01/11"),
     40,
     "course 2 long long long long description",
-    CourseDomain.JAVA
+    CourseDomain.JAVA,
+    false
   ),]
 
   beforeEach(async(() => {

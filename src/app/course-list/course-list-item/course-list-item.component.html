@@ -1,21 +1,21 @@
-<div class="card border-dark my-2">
-  <div class="card-header">
+<div class="card border-dark my-2"  >
+  <div class="card-header" [appReleaseHighlighter]="courseItem.creationDate">
     <div class="container ">
       <div class="row ">
         <h5 class="font flex-row ">{{courseItem.domain}}</h5>
         <div class="flex-row ml-md-auto d-none d-md-flex"></div>
-        <div class="fa-align-right align-self-center text-muted">
-          <h6>Created: {{courseItem.creationDate.toLocaleString()}}</h6>
+        <div class="fa-align-right align-self-center">
+          <h6>Created: {{courseItem.creationDate | date}}</h6>
         </div>
       </div>
-
     </div>
   </div>
-  <div class="card-body">
+  <div  [ngClass]="{'card-body':true,'starred':courseItem.starred }">
     <div class="row">
       <div class="col-lg-10 col-sm-5">
-        <h4 class="card-title text-dark">{{courseItem.title}}
-          <span class="text-muted"> ({{courseItem.duration}} min)</span>
+        <h4 class="card-title text-dark">{{courseItem.title|uppercase}}
+          <span class="text-muted"> ({{courseItem.duration | duration}})</span>
+          <img *ngIf="courseItem.starred" width="24" src="../../../assets/star.gif">
         </h4>
         <div class="card-text">
           <p class="text-dark ">{{courseItem.description}}</p>

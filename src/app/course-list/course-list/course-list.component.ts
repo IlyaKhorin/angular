@@ -10,6 +10,7 @@ import { CourseService } from '../course.service';
 export class CourseListComponent implements OnInit {
 
   public courseItems: ICourseListItem[] = [];
+  public searchText: string;
 
   constructor(private courseService: CourseService) { }
 
@@ -33,6 +34,11 @@ export class CourseListComponent implements OnInit {
     console.log("Loading more");
     this.courseService.loadMore();
     this.reloadItems();
+  }
+
+  searchCourses(searchText:string){
+    console.log("Loading more");
+    this.searchText = searchText;
   }
 
   private reloadItems() {
