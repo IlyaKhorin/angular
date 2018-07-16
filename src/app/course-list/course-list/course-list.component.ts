@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ICourseListItem } from '../icourse-list-item';
 import { CourseService } from '../course.service';
+import { FilterPipe } from '../filter.pipe';
 
 @Component({
   selector: 'app-course-list',
@@ -10,38 +11,37 @@ import { CourseService } from '../course.service';
 export class CourseListComponent implements OnInit {
 
   public courseItems: ICourseListItem[] = [];
-  public searchText: string;
+  public filteredItems: ICourseListItem[] = [];
 
-  constructor(private courseService: CourseService) { }
+  constructor(private filterPipe: FilterPipe,  private courseService: CourseService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.reloadItems();
   }
 
-  deleteCourse(courseItem: ICourseListItem) {
+  public deleteCourse(courseItem: ICourseListItem) {
     console.log("Deleting item: id:", courseItem.id);
     this.courseService.removeCourseItem(courseItem);
     this.reloadItems();
   }
 
-  createCourse() {
+  public createCourse() {
     console.log("Creating item");
     this.courseService.addCourseItem(null);
     this.reloadItems();
   }
 
-  loadMoreCourses(){
+  public loadMoreCourses(){
     console.log("Loading more");
     this.courseService.loadMore();
     this.reloadItems();
   }
 
-  searchCourses(searchText:string){
-    console.log("Loading more");
-    this.searchText = searchText;
+  public searchCourses(searchText:string){
+    this.reloadItems(searchText)
   }
 
-  private reloadItems() {
-    this.courseItems = this.courseService.getCourseItems();
+  private reloadItems(searchText = null) {
+      this.courseItems = this.filterPipe.transform(this.courseService.getCourseItems(), searchText);
   }
 }

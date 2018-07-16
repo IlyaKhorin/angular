@@ -12,8 +12,8 @@
       </div>
   </div>
   <div class=" d-flex flex-column">
-      <h4 class="align-self-center" *ngIf="courseItems.length == 0">There are no available items. Feel free to add new</h4>
-      <app-course-list-item *ngFor="let item of courseItems | filter:searchText | orderBy" [courseItem]="item" (onCourseDeleted)="deleteCourse($event)" ></app-course-list-item>
+      <h4 class="align-self-center" *ngIf="!courseItems.length">There are no available items. Feel free to add new</h4>
+      <app-course-list-item *ngFor="let item of courseItems | orderBy" [courseItem]="item" (onCourseDeleted)="deleteCourse($event)" ></app-course-list-item>
   </div>
   <div class="row">
       <div class="col-lg-12 ">

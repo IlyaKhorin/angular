@@ -11,7 +11,7 @@ export class CourseSearchComponent  {
 
   @Output() onSearch: EventEmitter<string> = new EventEmitter<string>();
 
-  searchCourses() {
+  public searchCourses() {
     console.log(this.searchQuery);
     this.onSearch.emit(this.searchQuery);
   }

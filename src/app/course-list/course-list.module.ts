@@ -14,7 +14,15 @@ import { DurationPipe } from './course-list-item/duration.pipe';
     CommonModule,
     FormsModule
   ],
-  declarations: [CourseListComponent, CourseListItemComponent, CourseSearchComponent, ReleaseHighlighterDirective, DurationPipe, OrderByPipe, FilterPipe],
-  exports: [CourseListComponent]
+  declarations: [
+    CourseListComponent,
+    CourseListItemComponent,
+    CourseSearchComponent,
+    ReleaseHighlighterDirective,
+    DurationPipe,
+    OrderByPipe,
+    FilterPipe],
+  exports: [CourseListComponent],
+  providers:[FilterPipe]
 })
 export class CourseListModule { }
