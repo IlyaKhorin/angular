@@ -6,7 +6,7 @@ import { ICourseListItem } from './icourse-list-item';
 })
 export class OrderByPipe implements PipeTransform {
 
-  transform(value: ICourseListItem[], args?: any): any {
+  transform(value: ICourseListItem[]): ICourseListItem[] {
     return value.sort((a,b) => {
       return b.creationDate.getTime() - a.creationDate.getTime()
     });

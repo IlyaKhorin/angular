@@ -6,7 +6,7 @@ import { ICourseListItem } from './icourse-list-item';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(value: ICourseListItem[], searchText: String): any {
+  transform(value: ICourseListItem[], searchText: String): ICourseListItem[] {
     if(!searchText){
       return value;
     }

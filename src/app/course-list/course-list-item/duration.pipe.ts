@@ -5,12 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DurationPipe implements PipeTransform {
 
-  transform(value: number, args?: any): any {
+  public transform(value: number): string {
     if(value < 60){
-      return value + " min.";
+      return `${value} min.`;
     } else {
-      return ~~(value/60) + "h " + value%60 + "min.";
+      return `${~~(value/60)}h ${value%60} min.`;
     }
   }
-
 }
