@@ -17,7 +17,7 @@ export class CourseService {
         1,
         "Course 1",
         new Date("2018/10/20"),
-        20,
+        20, 
         "course 1 description",
         CourseDomain.NET,
         false
@@ -52,6 +52,9 @@ export class CourseService {
     ];
   }
 
+  public getCourseItem(id:number): ICourseListItem {
+    return this.items.find((item) => item.id === id);
+  }
 
   public getCourseItems(): ICourseListItem[] {
     return this.items;

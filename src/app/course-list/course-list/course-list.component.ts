@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ICourseListItem } from '../icourse-list-item';
 import { CourseService } from '../course.service';
 import { FilterPipe } from '../filter.pipe';
+import { SimpleModalService } from "ngx-simple-modal";
+import { SimpleModalComponent } from 'ngx-modal-dialog';
+import { ConfirmationDialogComponent } from '../../Common/confirmation-dialog/confirmation-dialog.component';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-course-list',
@@ -11,18 +15,20 @@ import { FilterPipe } from '../filter.pipe';
 export class CourseListComponent implements OnInit {
 
   public courseItems: ICourseListItem[] = [];
-  public filteredItems: ICourseListItem[] = [];
+  public searchText: string;
+  public isAuth: boolean;
 
-  constructor(private filterPipe: FilterPipe,  private courseService: CourseService) { }
+  constructor(private filterPipe: FilterPipe, private courseService: CourseService, private simpleModalService: SimpleModalService, private authService: AuthService) {
+    authService.onAuthChanged.subscribe(() => this.reloadIsAuth());
+    this.reloadIsAuth()
+  }
 
   public ngOnInit() {
     this.reloadItems();
   }
 
   public deleteCourse(courseItem: ICourseListItem) {
-    console.log("Deleting item: id:", courseItem.id);
-    this.courseService.removeCourseItem(courseItem);
-    this.reloadItems();
+    this.showDeleteConfirm(courseItem);
   }
 
   public createCourse() {
@@ -38,10 +44,35 @@ export class CourseListComponent implements OnInit {
   }
 
   public searchCourses(searchText:string){
-    this.reloadItems(searchText)
+    this.searchText = searchText;
+    this.reloadItems()
   }
 
-  private reloadItems(searchText = null) {
-      this.courseItems = this.filterPipe.transform(this.courseService.getCourseItems(), searchText);
+  private reloadItems() {
+      this.courseItems = this.filterPipe.transform(this.courseService.getCourseItems(), this.searchText);
+  }
+
+  private showDeleteConfirm(courseItem: ICourseListItem) {
+    let disposable = this.simpleModalService.addModal(ConfirmationDialogComponent, {
+      title: 'Delete item',
+      message: 'Are you sure that you want to delete item?'
+    })
+      .subscribe((isConfirmed) => {
+        //We get modal result
+        if (isConfirmed) {
+          this.courseService.removeCourseItem(courseItem);
+          this.reloadItems();
+        }
+      });
+    //We can close modal calling disposable.unsubscribe();
+    //If modal was not closed manually close it by timeout
+    setTimeout(() => {
+      disposable.unsubscribe();
+    }, 10000);
+  }
+
+  private reloadIsAuth() {
+    this.isAuth = this.authService.isAuthenticated();
   }
 }
+

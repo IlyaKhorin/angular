@@ -1,17 +1,24 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { isNgTemplate } from '@angular/compiler';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-breadcrumbs',
-  templateUrl: './breadcrumbs.component.html',
-  styleUrls: ['./breadcrumbs.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class BreadcrumbsComponent {
+export class LoginComponent {
+
   public isAuth:boolean; 
+  public name:string;
+
   constructor(private authService:AuthService) {
     authService.onAuthChanged.subscribe(() => this.reloadIsAuth());
     this.reloadIsAuth()
+  }
+
+  login() {
+    this.authService.login(this.name);
   }
 
   private reloadIsAuth(){

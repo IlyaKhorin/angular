@@ -11,15 +11,31 @@ import { User } from '../auth/user';
 export class HeaderComponent implements OnInit {
 
   public user: IUser;
-  constructor(private authService:AuthService) { }
+  public isAuth: boolean;
+
+  constructor(private authService:AuthService) {
+    authService.onAuthChanged.subscribe(() => {
+      this.reloadIsAuth(); 
+      this.reloadUser();
+    });
+    this.reloadIsAuth()
+  }
 
   ngOnInit() {
-    this.user = this.authService.getUser();
+    this.reloadUser()
   }
 
   logoff() {
-    console.log("logging off");
-    this.user = null;
+    this.authService.logout();
+    this.reloadUser()
+  }
+
+  private reloadUser(){
+    this.user = this.authService.getUser();
+  }
+
+  private reloadIsAuth(){
+    this.isAuth = this.authService.isAuthenticated();
   }
 
 }

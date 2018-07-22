@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { User } from './user';
 import { IUser } from './iuser';
 
@@ -7,9 +7,25 @@ import { IUser } from './iuser';
 })
 export class AuthService {
 
+  private user:IUser;
+  public onAuthChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor() { }
-
+  
   public getUser(): IUser {
-    return new User(1,"Mike","Smith");
+    return this.user;
+  }
+
+  public login(name: string) {
+    this.user = new User(1, name, "");
+    this.onAuthChanged.emit(this.isAuthenticated());
+  }
+
+  public logout() {
+    this.user = null;
+    this.onAuthChanged.emit(this.isAuthenticated());
+  }
+
+  public isAuthenticated(): boolean {
+    return Boolean(this.user);
   }
 }
