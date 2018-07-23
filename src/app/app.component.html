@@ -1,9 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <app-header></app-header>
-<app-breadcrumbs></app-breadcrumbs>
+<app-breadcrumbs *ngIf="authService.isAuthenticated()"></app-breadcrumbs>
 <div class="container" role="main">
-  <app-course-list></app-course-list>
-  <app-login></app-login>
+  <app-course-list *ngIf="authService.isAuthenticated()"></app-course-list>
+  <app-login *ngIf="!authService.isAuthenticated()"></app-login>
 </div>
 <app-footer></app-footer>
 

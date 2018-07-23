@@ -7,8 +7,7 @@ import { IUser } from './iuser';
 })
 export class AuthService {
 
-  private user:IUser;
-  public onAuthChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  private user:IUser = null;
   constructor() { }
   
   public getUser(): IUser {
@@ -17,12 +16,14 @@ export class AuthService {
 
   public login(name: string) {
     this.user = new User(1, name, "");
-    this.onAuthChanged.emit(this.isAuthenticated());
+    window.localStorage.setItem("login",name);
+    window.localStorage.setItem("token","adsHFPAfroiFF{312.412");
   }
 
   public logout() {
     this.user = null;
-    this.onAuthChanged.emit(this.isAuthenticated());
+    window.localStorage.removeItem("login");
+    window.localStorage.removeItem("token");
   }
 
   public isAuthenticated(): boolean {

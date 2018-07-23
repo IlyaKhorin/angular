@@ -9,20 +9,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent {
 
-  public isAuth:boolean; 
   public name:string;
 
   constructor(private authService:AuthService) {
-    authService.onAuthChanged.subscribe(() => this.reloadIsAuth());
-    this.reloadIsAuth()
   }
 
   login() {
     this.authService.login(this.name);
   }
 
-  private reloadIsAuth(){
-    this.isAuth = this.authService.isAuthenticated();
-  }
 
 }

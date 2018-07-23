@@ -16,11 +16,8 @@ export class CourseListComponent implements OnInit {
 
   public courseItems: ICourseListItem[] = [];
   public searchText: string;
-  public isAuth: boolean;
 
   constructor(private filterPipe: FilterPipe, private courseService: CourseService, private simpleModalService: SimpleModalService, private authService: AuthService) {
-    authService.onAuthChanged.subscribe(() => this.reloadIsAuth());
-    this.reloadIsAuth()
   }
 
   public ngOnInit() {
@@ -47,7 +44,7 @@ export class CourseListComponent implements OnInit {
     this.searchText = searchText;
     this.reloadItems()
   }
-
+ 
   private reloadItems() {
       this.courseItems = this.filterPipe.transform(this.courseService.getCourseItems(), this.searchText);
   }
@@ -71,8 +68,5 @@ export class CourseListComponent implements OnInit {
     }, 10000);
   }
 
-  private reloadIsAuth() {
-    this.isAuth = this.authService.isAuthenticated();
-  }
 }
 

@@ -8,14 +8,6 @@ import { isNgTemplate } from '@angular/compiler';
   styleUrls: ['./breadcrumbs.component.css']
 })
 export class BreadcrumbsComponent {
-  public isAuth:boolean; 
-  constructor(private authService:AuthService) {
-    authService.onAuthChanged.subscribe(() => this.reloadIsAuth());
-    this.reloadIsAuth()
-  }
 
-  private reloadIsAuth(){
-    this.isAuth = this.authService.isAuthenticated();
-  }
 
 }
