@@ -11,13 +11,14 @@ export class CourseListItemComponent {
   
   @Input()public courseItem:ICourseListItem;
   @Output()public onCourseDeleted: EventEmitter<ICourseListItem> = new EventEmitter<ICourseListItem>();
+  @Output()public onCourseEdited: EventEmitter<ICourseListItem> = new EventEmitter<ICourseListItem>();
 
   deleteCourseItem(){
     this.onCourseDeleted.emit(this.courseItem);
   }
 
   editCourseItem(){
-    console.log("item editing:", this.courseItem)
+    this.onCourseEdited.emit(this.courseItem);
   }
 
 }

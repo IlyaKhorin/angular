@@ -7,8 +7,15 @@ import { ICourseListItem } from './icourse-list-item';
 export class OrderByPipe implements PipeTransform {
 
   transform(value: ICourseListItem[]): ICourseListItem[] {
-    return value.sort((a,b) => {
-      return b.creationDate.getTime() - a.creationDate.getTime()
+    return value.sort((a, b) => {
+      if (!b.creationDate) {
+        return 1;
+      }
+      else if (!a.creationDate) {
+        return -1;
+      } else {
+        return b.creationDate.getTime() - a.creationDate.getTime()
+      }
     });
   }
 

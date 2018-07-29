@@ -7,22 +7,24 @@ import { CourseSearchComponent } from './course-search/course-search.component';
 import { ReleaseHighlighterDirective } from './course-list-item/release-highlighter.directive';
 import { OrderByPipe } from './order-by.pipe';
 import { FilterPipe } from './filter.pipe';
-import { DurationPipe } from './course-list-item/duration.pipe';
+import { CourseListItemEditComponent } from './course-list-item-edit/course-list-item-edit.component';
+import { AppCommonModule } from '../app-common/app-common.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    AppCommonModule
   ],
   declarations: [
     CourseListComponent,
     CourseListItemComponent,
+    CourseListItemEditComponent,
     CourseSearchComponent,
     ReleaseHighlighterDirective,
-    DurationPipe,
     OrderByPipe,
     FilterPipe],
-  exports: [CourseListComponent],
+  exports: [CourseListComponent,CourseListItemEditComponent],
   providers:[FilterPipe]
 })
 export class CourseListModule { }
