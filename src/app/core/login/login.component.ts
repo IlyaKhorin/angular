@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,11 +12,13 @@ export class LoginComponent {
 
   public name:string;
 
-  constructor(private authService:AuthService) {
+  constructor(private authService:AuthService,private router:Router) {
+    
   }
 
   login() {
     this.authService.login(this.name);
+    this.router.navigate(['']);
   }
 
 

@@ -9,8 +9,8 @@ import { ICourseListItem } from './icourse-list-item';
 
 export class CourseService {
 
+  private id:number = 100;
   private items:ICourseListItem[];
-  public newItem: boolean;
 
   constructor() { 
     this.items = [
@@ -66,16 +66,16 @@ export class CourseService {
   }
 
   public addCourseItem(item:ICourseListItem) {
+    item.id = this.id++;
     this.items.push(item);
   }
 
   public editCourseItem(item:ICourseListItem) {
+    let replace = this.getCourseItem(item.id);
+    this.items.splice(this.items.indexOf(replace), 1, item)
   }
 
   public loadMore() {
   }
 
-  public isInEditMode():boolean {
-    return this.newItem;
-  }
 }

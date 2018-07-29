@@ -9,12 +9,14 @@ import { OrderByPipe } from './order-by.pipe';
 import { FilterPipe } from './filter.pipe';
 import { CourseListItemEditComponent } from './course-list-item-edit/course-list-item-edit.component';
 import { AppCommonModule } from '../app-common/app-common.module';
+import { RouterLink, RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    AppCommonModule
+    AppCommonModule,
+    RouterModule,
   ],
   declarations: [
     CourseListComponent,

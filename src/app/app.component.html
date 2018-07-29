@@ -1,10 +1,8 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <app-header></app-header>
 <app-breadcrumbs *ngIf="authService.isAuthenticated()"></app-breadcrumbs>
-<div class="container" role="main">
-  <app-course-list *ngIf="authService.isAuthenticated() && !courseService.isInEditMode()"></app-course-list>
-  <app-login *ngIf="!authService.isAuthenticated()"></app-login>
-  <app-course-list-item-edit *ngIf="authService.isAuthenticated() && courseService.isInEditMode()"></app-course-list-item-edit>
-</div>
+<main class="container" role="main">
+  <router-outlet></router-outlet>
+</main>
 <app-footer></app-footer>
 

@@ -28,10 +28,6 @@ export class CourseListComponent implements OnInit {
     this.showDeleteConfirm(courseItem);
   }
 
-  public createCourse() {
-    this.courseService.newItem = true;
-  }
-
   public loadMoreCourses(){
     console.log("Loading more");
     this.courseService.loadMore();
