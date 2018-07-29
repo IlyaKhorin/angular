@@ -10,16 +10,14 @@ import { User } from '../auth/user';
 })
 export class HeaderComponent implements OnInit {
 
-  public user: IUser;
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService) {
+  }
 
   ngOnInit() {
-    this.user = this.authService.getUser();
   }
 
   logoff() {
-    console.log("logging off");
-    this.user = null;
+    this.authService.logout();
   }
 
 }
