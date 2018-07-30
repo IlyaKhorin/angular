@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { isNgTemplate } from '@angular/compiler';
-import { ActivatedRoute, UrlSegment } from '@angular/router';
+import { ActivatedRoute, UrlSegment, NavigationEnd, Router } from '@angular/router';
 import { CourseService } from '../../course-list/course.service';
 
 @Component({
@@ -12,27 +12,34 @@ import { CourseService } from '../../course-list/course.service';
 export class BreadcrumbsComponent implements OnInit {
 
   public breadcrumbs: Breadcrumb[];
-  constructor(private route: ActivatedRoute, private courseService: CourseService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private courseService: CourseService) { }
 
   ngOnInit(): void {
-    this.route.url.subscribe(urls => {
-      this.breadcrumbs = new Array<Breadcrumb>(urls.length);
-      for (let i = 0; i < urls.length; i++) {
-        this.breadcrumbs[i] = this.resolveBreadcrumb(urls.splice(i));
-      }
-    });
+    this.router.events
+      .subscribe(event => {
+        if (!(event instanceof NavigationEnd)) {
+          return;
+        }
+        let urls = event.urlAfterRedirects.split('/');
+        this.breadcrumbs = new Array<Breadcrumb>(urls.length);
+        for (let i = 0; i < urls.length; i++) {
+          this.breadcrumbs[i] = this.resolveBreadcrumb(urls.splice(0, i + 1));
+          urls = event.urlAfterRedirects.split('/');
+        }
+      });
   }
 
-  private resolveBreadcrumb(urls: UrlSegment[]): Breadcrumb {
+  private resolveBreadcrumb(urls: string[]): Breadcrumb {
     const urlString = urls.join('/');
-    switch (urlString) {
-      case '':
-        return new Breadcrumb('', 'Home');
-      case 'courses':
-        return new Breadcrumb('/courses', 'Courses');
-      case 'courses/':
+    switch (true) {
+      case urlString.startsWith('/courses/'):
         const id = Number(urls[urls.length - 1]);
-        return new Breadcrumb('/courses/' + id, this.courseService.getCourseItem(id).title);
+        const item = this.courseService.getCourseItem(id);
+        return new Breadcrumb(null, item == null ? null : item.title);
+      case urlString.startsWith('/courses'):
+        return new Breadcrumb('/courses', 'Courses');
+      case urlString.startsWith(''):
+        return new Breadcrumb('', 'Home');
       default:
         return null;
     }
