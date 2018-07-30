@@ -4,8 +4,8 @@ import { CourseService } from '../course.service';
 import { FilterPipe } from '../filter.pipe';
 import { SimpleModalService } from "ngx-simple-modal";
 import { SimpleModalComponent } from 'ngx-modal-dialog';
-import { ConfirmationDialogComponent } from '../../Common/confirmation-dialog/confirmation-dialog.component';
 import { AuthService } from '../../core/auth/auth.service';
+import { ConfirmationDialogComponent } from '../../app-common/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-course-list',
@@ -29,9 +29,7 @@ export class CourseListComponent implements OnInit {
   }
 
   public createCourse() {
-    console.log("Creating item");
-    this.courseService.addCourseItem(null);
-    this.reloadItems();
+    this.courseService.newItem = true;
   }
 
   public loadMoreCourses(){

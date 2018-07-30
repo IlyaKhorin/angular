@@ -10,6 +10,7 @@ import { ICourseListItem } from './icourse-list-item';
 export class CourseService {
 
   private items:ICourseListItem[];
+  public newItem: boolean;
 
   constructor() { 
     this.items = [
@@ -65,11 +66,16 @@ export class CourseService {
   }
 
   public addCourseItem(item:ICourseListItem) {
+    this.items.push(item);
   }
 
   public editCourseItem(item:ICourseListItem) {
   }
 
   public loadMore() {
+  }
+
+  public isInEditMode():boolean {
+    return this.newItem;
   }
 }
