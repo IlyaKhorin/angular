@@ -13,16 +13,16 @@ import { ROUTES } from './app.routes';
 
 @NgModule({
   declarations: [
-    AppComponent    
+    AppComponent
   ],
   imports: [
     BrowserModule,
     CoreModule,
-    CourseListModule,    
+    CourseListModule,
     SimpleModalModule,
     CommonModule,
     AppCommonModule,
-    RouterModule.forRoot(ROUTES, {useHash:true})
+    RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [SimpleModalService],
   bootstrap: [AppComponent]

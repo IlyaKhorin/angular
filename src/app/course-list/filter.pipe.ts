@@ -7,10 +7,10 @@ import { ICourseListItem } from './icourse-list-item';
 export class FilterPipe implements PipeTransform {
 
   transform(value: ICourseListItem[], searchText: String): ICourseListItem[] {
-    if(!searchText){
+    if (!searchText) {
       return value;
     }
-    let toSearch = searchText.toLowerCase();
+    const toSearch = searchText.toLowerCase();
     return value.filter(i => i.title.toLowerCase().includes(toSearch));
   }
 

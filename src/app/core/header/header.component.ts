@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authService:AuthService, private router:Router) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
 
   logoff() {
     this.authService.logout();
-    this.router.navigate([''],{})
+    this.router.navigate(['login']);  
   }
 
 }

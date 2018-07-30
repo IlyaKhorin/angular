@@ -10,15 +10,15 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  public name:string;
+  public name: string;
 
-  constructor(private authService:AuthService,private router:Router) {
-    
+  constructor(private authService: AuthService, private router: Router) {
+
   }
 
   login() {
     this.authService.login(this.name);
-    this.router.navigate(['']);
+    this.router.navigate(['courses']);
   }
 
 

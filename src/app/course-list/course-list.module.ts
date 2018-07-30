@@ -10,6 +10,7 @@ import { FilterPipe } from './filter.pipe';
 import { CourseListItemEditComponent } from './course-list-item-edit/course-list-item-edit.component';
 import { AppCommonModule } from '../app-common/app-common.module';
 import { RouterLink, RouterModule } from '@angular/router';
+import { routing } from './course-list.routes';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { RouterLink, RouterModule } from '@angular/router';
     FormsModule,
     AppCommonModule,
     RouterModule,
+    routing
   ],
   declarations: [
     CourseListComponent,
@@ -25,8 +27,9 @@ import { RouterLink, RouterModule } from '@angular/router';
     CourseSearchComponent,
     ReleaseHighlighterDirective,
     OrderByPipe,
-    FilterPipe],
-  exports: [CourseListComponent,CourseListItemEditComponent],
-  providers:[FilterPipe]
+    FilterPipe,
+  ],
+  exports: [CourseListComponent, CourseListItemEditComponent],
+  providers: [FilterPipe]
 })
 export class CourseListModule { }

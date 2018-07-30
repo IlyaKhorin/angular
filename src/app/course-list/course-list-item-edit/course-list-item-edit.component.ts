@@ -11,34 +11,34 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CourseListItemEditComponent implements OnInit {
 
-  @Input() public courseItem:ICourseListItem; 
-  private courseId:number;
+  @Input() public courseItem: ICourseListItem;
+  private courseId: number;
 
-  constructor(private courseService:CourseService,private route:ActivatedRoute, private router:Router) {  }
+  constructor(private courseService: CourseService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe((data) => {
-      if(data["id"] === "new"){
-        this.courseItem = new CourseListItem(null,null,new Date(Date.now()),null,null,null,null)
-      }else{
-        this.courseItem = this.courseService.getCourseItem(Number(data["id"]));
-        if(!this.courseItem){
-          this.router.navigate(["notFound"],{ skipLocationChange: true})
+      if (data['id']) {
+        this.courseItem = this.courseService.getCourseItem(Number(data['id']));
+        if (!this.courseItem) {
+          this.router.navigate(['notFound'], { skipLocationChange: true });
         }
+      } else {
+        this.courseItem = new CourseListItem(null, null, new Date(Date.now()), null, null, null, null)
       }
-    })
+    });
   }
 
-  public saveItem(){
-    if(this.courseItem.id){
+  public saveItem() {
+    if (this.courseItem.id) {
       this.courseService.editCourseItem(this.courseItem)
-    }else{
+    } else {
       this.courseService.addCourseItem(this.courseItem)
     }
-    this.router.navigate(["courses"])
+    this.router.navigate(['courses']);
   }
 
-  public cancelItem(){
-    this.router.navigate(["courses"])
+  public cancelItem() {
+    this.router.navigate(['courses']);
   }
 }
