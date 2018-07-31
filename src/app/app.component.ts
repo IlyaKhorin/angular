@@ -9,5 +9,5 @@ import { CourseService } from './course-list/course.service';
 })
 export class AppComponent {
   title = 'app';
-  constructor(public courseService: CourseService) { }
+  constructor() { }
 }

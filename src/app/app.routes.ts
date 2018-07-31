@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
-import { CourseListComponent } from './course-list/course-list/course-list.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
-import { CourseListItemEditComponent } from './course-list/course-list-item-edit/course-list-item-edit.component';
 import { AuthGuard } from './core/auth/auth.guard';
 import { LoginComponent } from './core/login/login.component';
 
