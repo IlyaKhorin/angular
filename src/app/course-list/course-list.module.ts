@@ -9,12 +9,16 @@ import { OrderByPipe } from './order-by.pipe';
 import { FilterPipe } from './filter.pipe';
 import { CourseListItemEditComponent } from './course-list-item-edit/course-list-item-edit.component';
 import { AppCommonModule } from '../app-common/app-common.module';
+import { RouterLink, RouterModule } from '@angular/router';
+import { routing } from './course-list.routes';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    AppCommonModule
+    AppCommonModule,
+    RouterModule,
+    routing
   ],
   declarations: [
     CourseListComponent,
@@ -23,8 +27,9 @@ import { AppCommonModule } from '../app-common/app-common.module';
     CourseSearchComponent,
     ReleaseHighlighterDirective,
     OrderByPipe,
-    FilterPipe],
-  exports: [CourseListComponent,CourseListItemEditComponent],
-  providers:[FilterPipe]
+    FilterPipe,
+  ],
+  exports: [CourseListComponent, CourseListItemEditComponent],
+  providers: [FilterPipe]
 })
 export class CourseListModule { }

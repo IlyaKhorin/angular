@@ -5,21 +5,25 @@ import { FooterComponent } from './footer/footer.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule    
+    FormsModule,
+    RouterModule
   ],
   declarations: [
     HeaderComponent,
     FooterComponent,
     BreadcrumbsComponent,
-    LoginComponent],
+    LoginComponent,
+    NotFoundComponent],
   exports: [
     HeaderComponent,
     FooterComponent,
     BreadcrumbsComponent,
-    LoginComponent]  
+    LoginComponent]
 })
 export class CoreModule { }

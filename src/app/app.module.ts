@@ -7,19 +7,22 @@ import { CourseListModule } from './course-list/course-list.module';
 import { ModalDialogModule } from 'ngx-modal-dialog';
 import { SimpleModalService, SimpleModalModule } from 'ngx-simple-modal';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { AppCommonModule } from './app-common/app-common.module';
+import { ROUTES } from './app.routes';
 
 @NgModule({
   declarations: [
-    AppComponent    
+    AppComponent
   ],
   imports: [
     BrowserModule,
     CoreModule,
-    CourseListModule,    
+    CourseListModule,
     SimpleModalModule,
     CommonModule,
-    AppCommonModule
+    AppCommonModule,
+    RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [SimpleModalService],
   bootstrap: [AppComponent]

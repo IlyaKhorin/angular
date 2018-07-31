@@ -9,51 +9,51 @@ import { ICourseListItem } from './icourse-list-item';
 
 export class CourseService {
 
-  private items:ICourseListItem[];
-  public newItem: boolean;
+  private id = 100;
+  private items: ICourseListItem[];
 
-  constructor() { 
+  constructor() {
     this.items = [
       new CourseListItem(
         1,
-        "Course 1",
-        new Date("2018/10/20"),
-        20, 
-        "course 1 description",
+        'Course 1',
+        new Date('2018/10/20'),
+        20,
+        'course 1 description',
         CourseDomain.NET,
         false
       ),
       new CourseListItem(
         2,
-        "Course 2",
-        new Date("2018/07/11"),
+        'Course 2',
+        new Date('2018/07/11'),
         40,
-        "course 2 long long long long description",
+        'course 2 long long long long description',
         CourseDomain.JAVA,
         true
       ),
       new CourseListItem(
         3,
-        "Course 3",
-        new Date("2018/06/15"),
+        'Course 3',
+        new Date('2018/06/15'),
         153,
-        "course 1 description",
+        'course 1 description',
         CourseDomain.CPP,
         true
       ),
       new CourseListItem(
         4,
-        "Course 4",
-        new Date("2018/08/15"),
+        'Course 4',
+        new Date('2018/08/15'),
         153,
-        "course 4 description",
+        'course 4 description',
         CourseDomain.CPP,
         true
       ),
     ];
   }
 
-  public getCourseItem(id:number): ICourseListItem {
+  public getCourseItem(id: number): ICourseListItem {
     return this.items.find((item) => item.id === id);
   }
 
@@ -61,21 +61,21 @@ export class CourseService {
     return this.items;
   }
 
-  public removeCourseItem(item:ICourseListItem) {
-     this.items.splice(this.items.indexOf(item), 1);
+  public removeCourseItem(item: ICourseListItem) {
+    this.items.splice(this.items.indexOf(item), 1);
   }
 
-  public addCourseItem(item:ICourseListItem) {
+  public addCourseItem(item: ICourseListItem) {
+    item.id = this.id++;
     this.items.push(item);
   }
 
-  public editCourseItem(item:ICourseListItem) {
+  public editCourseItem(item: ICourseListItem) {
+    const replace = this.getCourseItem(item.id);
+    this.items.splice(this.items.indexOf(replace), 1, item);
   }
 
   public loadMore() {
   }
 
-  public isInEditMode():boolean {
-    return this.newItem;
-  }
 }
