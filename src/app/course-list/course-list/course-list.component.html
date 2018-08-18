@@ -2,7 +2,7 @@
   <div class="container">
       <div class="row">
         <div class="col-lg-7">
-            <app-course-search (onSearch)="searchCourses($event)"></app-course-search>        
+            <app-course-search (onSearch)="onSearchChange($event)"></app-course-search>        
         </div>
         <div class="col-lg-3">
         </div>
@@ -12,7 +12,7 @@
       </div>
   </div>
   <div class=" d-flex flex-column">
-      <h4 class="align-self-center" *ngIf="!courseItems.length">There are no available items. Feel free to add new</h4>
+      <h4 class="align-self-center" *ngIf="!courseItems.length" style="height:15em;">There are no available items. Feel free to add new</h4>
       <app-course-list-item *ngFor="let item of courseItems | orderBy" [courseItem]="item" (onCourseDeleted)="deleteCourse($event)" ></app-course-list-item>
   </div>
   <div class="row">

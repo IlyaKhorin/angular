@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RouterModule } from '@angular/router';
+import { LoadingBlockComponent } from './loading-block/loading-block.component';
 
 @NgModule({
   imports: [
@@ -19,11 +20,14 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     BreadcrumbsComponent,
     LoginComponent,
-    NotFoundComponent],
+    NotFoundComponent,
+    LoadingBlockComponent],
   exports: [
     HeaderComponent,
     FooterComponent,
     BreadcrumbsComponent,
-    LoginComponent]
+    LoginComponent,
+    LoadingBlockComponent
+  ]
 })
 export class CoreModule { }

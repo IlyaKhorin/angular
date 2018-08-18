@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { User } from '../auth/user';
 
 @Component({
@@ -10,23 +10,21 @@ import { User } from '../auth/user';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnDestroy {
 
   public name: string;
   public password: string;
+  private subscription: Subscription;
 
   constructor(private authService: AuthService, private router: Router) {
   }
 
-  ngOnInit(): void {
-    this.authService.loadUser().subscribe(s => this.router.navigate(['courses']));
-  }
-
   login() {
-    this.authService.login(this.name, this.password)
+    this.subscription = this.authService.login(this.name, this.password)
       .subscribe(s => this.router.navigate(['courses']));
   }
 
   ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

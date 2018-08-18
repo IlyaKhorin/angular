@@ -5,6 +5,8 @@ import { SimpleModalService } from "ngx-simple-modal";
 import { SimpleModalComponent } from 'ngx-modal-dialog';
 import { AuthService } from '../../core/auth/auth.service';
 import { ConfirmationDialogComponent } from '../../app-common/confirmation-dialog/confirmation-dialog.component';
+import { Subject, interval } from 'rxjs';
+import { debounce, filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course-list',
@@ -17,12 +19,17 @@ export class CourseListComponent implements OnInit {
   public searchText: string;
   public page = 0;
 
+  private searchSubject = new Subject<string>();
+
   constructor(private courseService: CourseService, private simpleModalService: SimpleModalService, private authService: AuthService) {
   }
 
   public ngOnInit() {
-    this.resetItems();
-    this.loadItems();
+    this.loadItems(true);
+    this.searchSubject.pipe(
+      filter(s => s.length >= 3 || !s),
+      debounce(s => interval(500))
+    ).subscribe(s => this.searchCourses(s));
   }
 
   public deleteCourse(courseItem: ICourseListItem) {
@@ -34,19 +41,24 @@ export class CourseListComponent implements OnInit {
     this.loadItems();
   }
 
-  public searchCourses(searchText: string) {
-    this.resetItems();
-    this.searchText = searchText;
-    this.loadItems();
+  public onSearchChange(val: string) {
+    this.searchSubject.next(val);
   }
 
-  private resetItems() {
-    this.page = 0;
-    this.courseItems = [];
+  public searchCourses(val: string) {
+    this.searchText = val;
+    this.loadItems(true);
   }
 
-  private loadItems() {
-    this.courseService.getCourseItems(this.page, this.searchText).subscribe(s => this.courseItems = this.courseItems.concat(s));
+  private loadItems(reset: boolean = false) {
+    if (reset) { this.page = 0; }
+    this.courseService.getCourseItems(this.page, this.searchText).subscribe(s => {
+      if (reset) {
+        this.courseItems = s;
+      } else {
+        this.courseItems = this.courseItems.concat(s);
+      }
+    });
   }
 
   private showDeleteConfirm(courseItem: ICourseListItem) {
@@ -57,7 +69,7 @@ export class CourseListComponent implements OnInit {
       .subscribe((isConfirmed) => {
         //We get modal result
         if (isConfirmed) {
-          this.courseService.removeCourseItem(courseItem).subscribe(_ => this.loadItems());
+          this.courseService.removeCourseItem(courseItem).subscribe(_ => this.loadItems(true));
         }
       });
     //We can close modal calling disposable.unsubscribe();
