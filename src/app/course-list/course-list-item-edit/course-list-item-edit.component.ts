@@ -17,9 +17,9 @@ export class CourseListItemEditComponent implements OnInit {
   constructor(private courseService: CourseService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.route.params.subscribe((data) => {
+    this.route.params.subscribe(async (data) => {
       if (data['id']) {
-        this.courseItem = this.courseService.getCourseItem(Number(data['id']));
+        this.courseItem = await this.courseService.getCourseItem(Number(data['id'])).toPromise();
         if (!this.courseItem) {
           this.router.navigate(['notFound'], { skipLocationChange: true });
         }
@@ -29,11 +29,11 @@ export class CourseListItemEditComponent implements OnInit {
     });
   }
 
-  public saveItem() {
+  public async saveItem() {
     if (this.courseItem.id) {
-      this.courseService.editCourseItem(this.courseItem)
+      await this.courseService.editCourseItem(this.courseItem).toPromise();
     } else {
-      this.courseService.addCourseItem(this.courseItem)
+      await this.courseService.addCourseItem(this.courseItem).toPromise();
     }
     this.router.navigate(['courses']);
   }

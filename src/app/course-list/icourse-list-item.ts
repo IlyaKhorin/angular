@@ -2,10 +2,10 @@ import { CourseDomain } from "./course-domain.enum";
 
 export interface ICourseListItem {
     id: number;
-    title: string;
-    creationDate: Date;
-    duration: number;
+    name: string;
+    date: Date;
+    length: number;
     description: string;
     domain: CourseDomain;
-    starred: boolean;
+    isTopRated: boolean;
 }

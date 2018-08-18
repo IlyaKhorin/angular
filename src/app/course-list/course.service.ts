@@ -2,80 +2,44 @@ import { Injectable } from '@angular/core';
 import { CourseListItem } from './course-list-item';
 import { CourseDomain } from './course-domain.enum';
 import { ICourseListItem } from './icourse-list-item';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class CourseService {
-
-  private id = 100;
-  private items: ICourseListItem[];
-
-  constructor() {
-    this.items = [
-      new CourseListItem(
-        1,
-        'Course 1',
-        new Date('2018/10/20'),
-        20,
-        'course 1 description',
-        CourseDomain.NET,
-        false
-      ),
-      new CourseListItem(
-        2,
-        'Course 2',
-        new Date('2018/07/11'),
-        40,
-        'course 2 long long long long description',
-        CourseDomain.JAVA,
-        true
-      ),
-      new CourseListItem(
-        3,
-        'Course 3',
-        new Date('2018/06/15'),
-        153,
-        'course 1 description',
-        CourseDomain.CPP,
-        true
-      ),
-      new CourseListItem(
-        4,
-        'Course 4',
-        new Date('2018/08/15'),
-        153,
-        'course 4 description',
-        CourseDomain.CPP,
-        true
-      ),
-    ];
+  private BASE_URL = 'http://localhost:3004';
+  private PAGE_SIZE = 3;
+  constructor(private http: HttpClient) {
   }
 
-  public getCourseItem(id: number): ICourseListItem {
-    return this.items.find((item) => item.id === id);
+  public getCourseItem(id: number): Observable<ICourseListItem> {
+    return this.http.get<ICourseListItem>(`${this.BASE_URL}/courses/${id}`);
   }
 
-  public getCourseItems(): ICourseListItem[] {
-    return this.items;
+  public getCourseItems(page: number = 0, textQuery: string = null): Observable<ICourseListItem[]> {
+    let httpParams = new HttpParams()
+      .set('start', (page * this.PAGE_SIZE).toString())
+      .set('count', this.PAGE_SIZE.toString());
+
+    if (textQuery) {
+      httpParams = httpParams.set('textFragment', textQuery);
+    }
+    return this.http.get<ICourseListItem[]>(`${this.BASE_URL}/courses`, { params: httpParams });
   }
 
-  public removeCourseItem(item: ICourseListItem) {
-    this.items.splice(this.items.indexOf(item), 1);
+  public removeCourseItem(item: ICourseListItem): Observable<ICourseListItem> {
+    return this.http.delete<ICourseListItem>(`${this.BASE_URL}/courses/${item.id}`);
   }
 
-  public addCourseItem(item: ICourseListItem) {
-    item.id = this.id++;
-    this.items.push(item);
+  public addCourseItem(item: ICourseListItem): Observable<ICourseListItem> {
+    return this.http.post<ICourseListItem>(`${this.BASE_URL}/courses`, item);
   }
 
   public editCourseItem(item: ICourseListItem) {
-    const replace = this.getCourseItem(item.id);
-    this.items.splice(this.items.indexOf(replace), 1, item);
-  }
-
-  public loadMore() {
+    return this.http.put<ICourseListItem>(`${this.BASE_URL}/courses/${item.id}`, item);
   }
 
 }

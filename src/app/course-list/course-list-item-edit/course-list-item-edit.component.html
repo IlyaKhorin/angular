@@ -1,7 +1,7 @@
 <div *ngIf="courseItem">
   <div class="form-group">
     <label>Title</label>
-    <input type="text" class="form-control" placeholder="Title" [(ngModel)]="courseItem.title">
+    <input type="text" class="form-control" placeholder="Title" [(ngModel)]="courseItem.name">
   </div>
   <div class="form-group">
     <label>Description</label>
@@ -9,11 +9,11 @@
   </div>
   <div class="form-group">
     <label>Date</label>
-    <app-date-input [(date)]="courseItem.creationDate"></app-date-input>
+    <app-date-input [(date)]="courseItem.date"></app-date-input>
   </div>
   <div class="form-group">
     <label>Duration</label>
-    <app-duration-input [(duration)]="courseItem.duration"></app-duration-input>
+    <app-duration-input [(duration)]="courseItem.length"></app-duration-input>
   </div>
   <div class="form-group">
     <label>Authors</label>

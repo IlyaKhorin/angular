@@ -6,7 +6,7 @@
 	<div class="navbar-nav flex-row ml-md-auto d-none d-md-flex ">
 	</div>
 	<div class="navbar-nav" >
-		<h5 class="text-light m-2" *ngIf="authService.isAuthenticated()">{{authService.getUser().firstName}} {{authService.getUser().lastName}}</h5>
+		<h5 class="text-light m-2" *ngIf="authService.isAuthenticated()">{{authService.getUser().name.first}} {{authService.getUser().name.last}}</h5>
 		<button class="btn btn-outline-light my-2 my-sm-0" *ngIf="authService.getUser()" (click)="logoff()">Log Off</button>
 	</div>
 </nav>

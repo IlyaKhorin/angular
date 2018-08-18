@@ -8,13 +8,12 @@ export class OrderByPipe implements PipeTransform {
 
   transform(value: ICourseListItem[]): ICourseListItem[] {
     return value.sort((a, b) => {
-      if (!b.creationDate) {
+      if (!b.date) {
         return 1;
-      }
-      else if (!a.creationDate) {
+      } else if (!a.date) {
         return -1;
       } else {
-        return b.creationDate.getTime() - a.creationDate.getTime()
+        return Date.parse(b.date.toString()) - Date.parse(a.date.toString());
       }
     });
   }
