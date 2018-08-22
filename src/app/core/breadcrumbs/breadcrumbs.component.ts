@@ -16,26 +16,26 @@ export class BreadcrumbsComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events
-      .subscribe(event => {
+      .subscribe(async event => {
         if (!(event instanceof NavigationEnd)) {
           return;
         }
         let urls = event.urlAfterRedirects.split('/');
         this.breadcrumbs = new Array<Breadcrumb>(urls.length);
         for (let i = 0; i < urls.length; i++) {
-          this.breadcrumbs[i] = this.resolveBreadcrumb(urls.splice(0, i + 1));
+          this.breadcrumbs[i] = await this.resolveBreadcrumb(urls.splice(0, i + 1));
           urls = event.urlAfterRedirects.split('/');
         }
       });
   }
 
-  private resolveBreadcrumb(urls: string[]): Breadcrumb {
+  private async resolveBreadcrumb(urls: string[]): Promise<Breadcrumb> {
     const urlString = urls.join('/');
     switch (true) {
       case urlString.startsWith('/courses/'):
         const id = Number(urls[urls.length - 1]);
-        const item = this.courseService.getCourseItem(id);
-        return new Breadcrumb(null, item == null ? null : item.title);
+        const item = await this.courseService.getCourseItem(id).toPromise();
+        return new Breadcrumb(null, item == null ? null : item.name);
       case urlString.startsWith('/courses'):
         return new Breadcrumb('/courses', 'Courses');
       case urlString.startsWith(''):

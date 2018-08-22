@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ICourseListItem } from '../icourse-list-item';
 import { CourseService } from '../course.service';
-import { FilterPipe } from '../filter.pipe';
 import { SimpleModalService } from "ngx-simple-modal";
 import { SimpleModalComponent } from 'ngx-modal-dialog';
 import { AuthService } from '../../core/auth/auth.service';
@@ -16,43 +15,49 @@ export class CourseListComponent implements OnInit {
 
   public courseItems: ICourseListItem[] = [];
   public searchText: string;
+  public page = 0;
 
-  constructor(private filterPipe: FilterPipe, private courseService: CourseService, private simpleModalService: SimpleModalService, private authService: AuthService) {
+  constructor(private courseService: CourseService, private simpleModalService: SimpleModalService, private authService: AuthService) {
   }
 
   public ngOnInit() {
-    this.reloadItems();
+    this.resetItems();
+    this.loadItems();
   }
 
   public deleteCourse(courseItem: ICourseListItem) {
     this.showDeleteConfirm(courseItem);
   }
 
-  public loadMoreCourses(){
-    console.log("Loading more");
-    this.courseService.loadMore();
-    this.reloadItems();
+  public loadMoreCourses() {
+    this.page++;
+    this.loadItems();
   }
 
-  public searchCourses(searchText:string){
+  public searchCourses(searchText: string) {
+    this.resetItems();
     this.searchText = searchText;
-    this.reloadItems()
+    this.loadItems();
   }
- 
-  private reloadItems() {
-      this.courseItems = this.filterPipe.transform(this.courseService.getCourseItems(), this.searchText);
+
+  private resetItems() {
+    this.page = 0;
+    this.courseItems = [];
+  }
+
+  private loadItems() {
+    this.courseService.getCourseItems(this.page, this.searchText).subscribe(s => this.courseItems = this.courseItems.concat(s));
   }
 
   private showDeleteConfirm(courseItem: ICourseListItem) {
-    let disposable = this.simpleModalService.addModal(ConfirmationDialogComponent, {
+    const disposable = this.simpleModalService.addModal(ConfirmationDialogComponent, {
       title: 'Delete item',
       message: 'Are you sure that you want to delete item?'
     })
       .subscribe((isConfirmed) => {
         //We get modal result
         if (isConfirmed) {
-          this.courseService.removeCourseItem(courseItem);
-          this.reloadItems();
+          this.courseService.removeCourseItem(courseItem).subscribe(_ => this.loadItems());
         }
       });
     //We can close modal calling disposable.unsubscribe();

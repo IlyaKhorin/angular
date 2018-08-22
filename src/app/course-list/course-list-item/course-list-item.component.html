@@ -5,7 +5,7 @@
         <h5 class="font flex-row ">{{courseItem.domain}}</h5>
         <div class="flex-row ml-md-auto d-none d-md-flex"></div>
         <div class="fa-align-right align-self-center">
-          <h6>Created: {{courseItem.creationDate | date:'dd.MM.yyyy'}}</h6>
+          <h6>Created: {{courseItem.date | date:'dd.MM.yyyy'}}</h6>
         </div>
       </div>
     </div>
@@ -13,8 +13,8 @@
   <div class="card-body" [ngClass]="{'starred':courseItem.starred }">
     <div class="row">
       <div class="col-lg-10 col-sm-5">
-        <h4 class="card-title text-dark">{{courseItem.title|uppercase}}
-          <span class="text-muted"> ({{courseItem.duration | duration}})</span>
+        <h4 class="card-title text-dark">{{courseItem.name|uppercase}}
+          <span class="text-muted"> ({{courseItem.length | duration}})</span>
           <img *ngIf="courseItem.starred" width="24" src="../../../assets/star.gif">
         </h4>
         <div class="card-text">
