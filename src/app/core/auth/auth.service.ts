@@ -2,8 +2,10 @@ import { Injectable, EventEmitter, OnInit } from '@angular/core';
 import { User } from './user';
 import { IUser } from './iuser';
 import { HttpClient } from '@angular/common/http';
-import { tap, flatMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { tap, flatMap, mapTo, map, catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { LoadingBlockService } from '../loading-block/loading-block.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class AuthService {
 
   private BASE_URL = 'http://localhost:3004';
   private user: IUser = null;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private blockService: LoadingBlockService) {
   }
 
   public getUser(): IUser {
@@ -20,14 +22,14 @@ export class AuthService {
   }
 
   public login(login: string, password: string): Observable<User> {
-    return this.http.post<Token>(`${this.BASE_URL}/auth/login`,
+    return this.blockService.withBlock(this.http.post<Token>(`${this.BASE_URL}/auth/login`,
       {
         login,
         password
       }).pipe(
         tap(s => window.localStorage.setItem('token', s.token)),
         flatMap(s => this.loadUser())
-      );
+      ));
   }
 
   public logout() {
@@ -35,15 +37,22 @@ export class AuthService {
     window.localStorage.removeItem('token');
   }
 
-  public isAuthenticated(): boolean {
-    return Boolean(this.user);
+  public isAuthenticated(): Observable<boolean> {
+    return this.loadUser()
+      .pipe(
+        map(u => true),
+        catchError(e => of(false))
+      );
   }
 
   public loadUser(): Observable<User> {
-    return this.http.post<User>(`${this.BASE_URL}/auth/userInfo`, null)
-    .pipe(tap(u => this.user = u));
+    if (window.localStorage.getItem('token')) {
+      return this.http.post<User>(`${this.BASE_URL}/auth/userInfo`, null)
+        .pipe(tap(u => this.user = u));
+    } else {
+      return throwError(null);
+    }
   }
-
 }
 
 interface Token {

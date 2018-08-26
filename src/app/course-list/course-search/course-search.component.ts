@@ -5,15 +5,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   templateUrl: './course-search.component.html',
   styleUrls: ['./course-search.component.css']
 })
-export class CourseSearchComponent  {
+export class CourseSearchComponent {
 
-  searchQuery: string;
-
+  public searchString: string;
   @Output() onSearch: EventEmitter<string> = new EventEmitter<string>();
 
-  public searchCourses() {
-    console.log(this.searchQuery);
-    this.onSearch.emit(this.searchQuery);
+  public searchChanged(val: string) {
+    this.onSearch.emit(val);
   }
 
 }

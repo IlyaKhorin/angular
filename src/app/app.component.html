@@ -2,7 +2,9 @@
 <app-header></app-header>
 <app-breadcrumbs></app-breadcrumbs>
 <main class="container" role="main">
-  <router-outlet></router-outlet>
+  <app-loading-block>
+      <router-outlet></router-outlet>
+  </app-loading-block>
 </main>
 <app-footer></app-footer>
 

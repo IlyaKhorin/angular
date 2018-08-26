@@ -8,16 +8,16 @@ import { ICourseListItem } from '../icourse-list-item';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseListItemComponent {
-  
-  @Input()public courseItem:ICourseListItem;
-  @Output()public onCourseDeleted: EventEmitter<ICourseListItem> = new EventEmitter<ICourseListItem>();
-  @Output()public onCourseEdited: EventEmitter<ICourseListItem> = new EventEmitter<ICourseListItem>();
 
-  deleteCourseItem(){
+  @Input() public courseItem: ICourseListItem;
+  @Output() public onCourseDeleted: EventEmitter<ICourseListItem> = new EventEmitter<ICourseListItem>();
+  @Output() public onCourseEdited: EventEmitter<ICourseListItem> = new EventEmitter<ICourseListItem>();
+
+  deleteCourseItem() {
     this.onCourseDeleted.emit(this.courseItem);
   }
 
-  editCourseItem(){
+  editCourseItem() {
     this.onCourseEdited.emit(this.courseItem);
   }
 
