@@ -8,6 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RouterModule } from '@angular/router';
 import { LoadingBlockComponent } from './loading-block/loading-block.component';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { AuthEffects } from './auth/auth.effects';
+import { authReducer } from './auth/auth.reducer';
 
 @NgModule({
   imports: [
@@ -21,7 +25,8 @@ import { LoadingBlockComponent } from './loading-block/loading-block.component';
     BreadcrumbsComponent,
     LoginComponent,
     NotFoundComponent,
-    LoadingBlockComponent],
+    LoadingBlockComponent,
+  ],
   exports: [
     HeaderComponent,
     FooterComponent,

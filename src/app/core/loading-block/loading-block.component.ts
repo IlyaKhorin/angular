@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingBlockService } from './loading-block.service';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../../app.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-loading-block',
@@ -8,11 +10,11 @@ import { LoadingBlockService } from './loading-block.service';
 })
 export class LoadingBlockComponent implements OnInit {
 
-  public blocked = false;
-  constructor(public blockService: LoadingBlockService) { }
+  public inProgress: Observable<boolean>;
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.blockService.isBlocked().subscribe(blocked => this.blocked = blocked);
+    this.inProgress = this.store.pipe(select(s => s.progress.inProgress));
   }
 
 }

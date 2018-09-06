@@ -1,4 +1,4 @@
-<div id="loader" *ngIf='blocked'></div>
+<div id="loader" *ngIf='inProgress | async'></div>
 
 <div  id="myDiv">
   <ng-content></ng-content>
