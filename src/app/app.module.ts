@@ -9,10 +9,15 @@ import { ModalDialogModule } from 'ngx-modal-dialog';
 import { SimpleModalService, SimpleModalModule } from 'ngx-simple-modal';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 import { AppCommonModule } from './app-common/app-common.module';
 import { ROUTES } from './app.routes';
 import { HttpRequest } from 'selenium-webdriver/http';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
+import { authReducer } from './core/auth/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './core/auth/auth.effects';
+import { progressReducer } from './core/loading-block/loading-block.reducer';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,9 @@ import { AuthInterceptor } from './core/auth/auth.interceptor';
     SimpleModalModule,
     CommonModule,
     AppCommonModule,
-    RouterModule.forRoot(ROUTES, { useHash: true })
+    RouterModule.forRoot(ROUTES, { useHash: true }),
+    StoreModule.forRoot({ auth: authReducer, progress: progressReducer }),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [
     SimpleModalService,

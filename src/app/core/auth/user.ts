@@ -1,5 +1,10 @@
 import { IUser } from './iuser';
 
+export interface Authenticate {
+    username: string;
+    password: string;
+  }
+
 export class User implements IUser {
     constructor(
         public id: number,
