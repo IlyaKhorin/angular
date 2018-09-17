@@ -18,10 +18,11 @@ import { authReducer } from './core/auth/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './core/auth/auth.effects';
 import { progressReducer } from './core/loading-block/loading-block.reducer';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +32,8 @@ import { progressReducer } from './core/loading-block/loading-block.reducer';
     SimpleModalModule,
     CommonModule,
     AppCommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
     StoreModule.forRoot({ auth: authReducer, progress: progressReducer }),
     EffectsModule.forRoot([AuthEffects]),

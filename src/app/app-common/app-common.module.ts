@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { DurationInputComponent } from './duration-input/duration-input.component';
 import { DateInputComponent } from './date-input/date-input.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DurationPipe } from './duration.pipe';
+import { DateValidationDirective } from './date-input/date-validation.directive';
 
 @NgModule({
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, FormsModule],
   declarations: [
     ConfirmationDialogComponent,
     DurationInputComponent,

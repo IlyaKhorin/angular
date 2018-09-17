@@ -1,4 +1,5 @@
 import { CourseDomain } from "./course-domain.enum";
+import { Author } from "./author";
 
 export interface ICourseListItem {
     id: number;
@@ -6,6 +7,6 @@ export interface ICourseListItem {
     date: Date;
     length: number;
     description: string;
-    domain: CourseDomain;
     isTopRated: boolean;
+    authors: Author[];
 }

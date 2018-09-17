@@ -1,5 +1,5 @@
 import { ICourseListItem } from "./icourse-list-item";
-import { CourseDomain } from "./course-domain.enum";
+import { Author } from "./author";
 
 export class CourseListItem implements ICourseListItem {
 
@@ -9,7 +9,7 @@ export class CourseListItem implements ICourseListItem {
         public date: Date,
         public length: number,
         public description: string,
-        public domain: CourseDomain,
-        public isTopRated: boolean
+        public isTopRated: boolean,
+        public authors: Author[]
     ) { }
 }
