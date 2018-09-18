@@ -5,6 +5,7 @@ import { DurationInputComponent } from './duration-input/duration-input.componen
 import { DateInputComponent } from './date-input/date-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DurationPipe } from './duration.pipe';
+import { AuthorsInputComponent } from './authors-input/authors-input.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, FormsModule],
@@ -12,12 +13,15 @@ import { DurationPipe } from './duration.pipe';
     ConfirmationDialogComponent,
     DurationInputComponent,
     DateInputComponent,
-    DurationPipe],
+    DurationPipe,
+    AuthorsInputComponent],
   exports: [
     ConfirmationDialogComponent,
     DurationInputComponent,
     DateInputComponent,
-    DurationPipe],
+    DurationPipe,
+    AuthorsInputComponent
+  ],
   entryComponents: [
     ConfirmationDialogComponent
   ],

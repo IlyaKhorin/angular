@@ -1,5 +1,6 @@
 export class Author {
-    id: number;
-    firstName: string;
-    lastName: string;
+    constructor(
+        public id: string,
+        public firstName: string,
+        public lastName: string) { }
 }

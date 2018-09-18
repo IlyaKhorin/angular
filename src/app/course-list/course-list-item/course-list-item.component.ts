@@ -21,4 +21,8 @@ export class CourseListItemComponent {
     this.onCourseEdited.emit(this.courseItem);
   }
 
+  get authors() {
+    return this.courseItem.authors.map(a => a.firstName + ' ' + a.lastName).join(' ');
+  }
+
 }

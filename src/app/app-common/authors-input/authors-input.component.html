@@ -1,0 +1,13 @@
+<div class="border-dark" style="border: 1px solid" >
+  <input type="text" [formControl]="searchString" (blur)="onBlur()" (click)="onShow()" (keyup)="onKeyup($event)" class="border-0"/>
+  <span *ngFor="let author of selectedAuthors" class="badge badge-success" style="margin: 2px">
+    <span class="text" style="margin: 2px">{{author.firstName}}</span>
+    <button class="btn btn-danger " style="margin: 2px;padding-top: 0px;padding-bottom: 0px" (click)="onDelete(author)">x</button>
+  </span>
+  <div *ngIf="selectorShowed" class="border-dark" style="border: 1px solid">
+    <li *ngFor="let author of searchAuthors" (click)="onSelect(author)">
+      <span>{{author.firstName}}</span>
+      <span>{{author.lastName}}</span>
+    </li>
+  </div>
+</div>
