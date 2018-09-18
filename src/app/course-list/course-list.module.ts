@@ -10,7 +10,6 @@ import { CourseListItemEditComponent } from './course-list-item-edit/course-list
 import { AppCommonModule } from '../app-common/app-common.module';
 import { RouterLink, RouterModule } from '@angular/router';
 import { routing } from './course-list.routes';
-import { DateValidationDirective } from '../app-common/date-input/date-validation.directive';
 
 @NgModule({
   imports: [
@@ -27,7 +26,6 @@ import { DateValidationDirective } from '../app-common/date-input/date-validatio
     CourseListItemEditComponent,
     CourseSearchComponent,
     ReleaseHighlighterDirective,
-    DateValidationDirective,
     OrderByPipe,
   ],
   exports: [CourseListComponent, CourseListItemEditComponent],

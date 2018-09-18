@@ -28,21 +28,29 @@
       <label>Date</label>
       <app-date-input formControlName="date"></app-date-input>
       <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
-          <div *ngIf="date.errors.required">
-            Description is required.
-          </div>
-          <div *ngIf="date.errors.dateFormat">
-            Description must not be more than 500 characters long.
-          </div>
+        <div *ngIf="date.errors.required">
+          Date is required.
         </div>
+        <div *ngIf="date.errors.dateFormat">
+          {{date.errors.dateFormat}}
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label>Duration</label>
-      <!-- <app-duration-input [(duration)]="courseItem.length"></app-duration-input> -->
+      <app-duration-input formControlName="length"></app-duration-input>
+      <div *ngIf="length.invalid && (length.dirty || length.touched)" class="alert alert-danger">
+        <div *ngIf="length.errors.required">
+          Duration is required.
+        </div>
+        <div *ngIf="length.errors.intFormat">
+          {{length.errors.intFormat}}
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label>Authors</label>
-      <!-- <input type="text" class="form-control" placeholder="Authors"> -->
+      <input type="text" class="form-control" placeholder="Authors">
     </div>
 
     <div class="form-row">

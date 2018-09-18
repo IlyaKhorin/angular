@@ -34,8 +34,12 @@ export class BreadcrumbsComponent implements OnInit {
     switch (true) {
       case urlString.startsWith('/courses/'):
         const id = Number(urls[urls.length - 1]);
-        const item = await this.courseService.getCourseItem(id).toPromise();
-        return new Breadcrumb(null, item == null ? null : item.name);
+        if (id) {
+          const item = await this.courseService.getCourseItem(id).toPromise();
+          return new Breadcrumb(null, item == null ? null : item.name);
+        } else {
+          return new Breadcrumb(null, null);
+        }
       case urlString.startsWith('/courses'):
         return new Breadcrumb('/courses', 'Courses');
       case urlString.startsWith(''):

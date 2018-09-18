@@ -5,7 +5,6 @@ import { DurationInputComponent } from './duration-input/duration-input.componen
 import { DateInputComponent } from './date-input/date-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DurationPipe } from './duration.pipe';
-import { DateValidationDirective } from './date-input/date-validation.directive';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, FormsModule],

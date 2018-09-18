@@ -4,7 +4,6 @@ import { ICourseListItem } from '../icourse-list-item';
 import { CourseListItem } from '../course-list-item';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { DateValidationDirective } from '../../app-common/date-input/date-validation.directive';
 
 @Component({
   selector: 'app-course-list-item-edit',
@@ -19,7 +18,7 @@ export class CourseListItemEditComponent implements OnInit {
     date: new FormControl('', [Validators.required]),
     length: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     description: new FormControl('', [Validators.required, Validators.maxLength(500)]),
-    authors: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    authors: new FormControl(''),
     isTopRated: new FormControl()
   });
 
