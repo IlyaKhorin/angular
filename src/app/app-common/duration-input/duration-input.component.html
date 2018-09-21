@@ -1,5 +1,5 @@
 <div class="form-row">
-  <input type="text" class="form-control col-md-2" placeholder="Duration" [(ngModel)]="duration">
+  <input type="text" class="form-control col-md-2" placeholder="Duration" [formControl]="durationString"  (blur)="onTouched()">
   <p class="col-md-3" >{{duration |duration}}</p>
 </div>
 

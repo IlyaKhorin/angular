@@ -1,27 +1,61 @@
-<div *ngIf="courseItem">
-  <div class="form-group">
-    <label>Title</label>
-    <input type="text" class="form-control" placeholder="Title" [(ngModel)]="courseItem.name">
-  </div>
-  <div class="form-group">
-    <label>Description</label>
-    <textarea class="form-control" placeholder="Description" [(ngModel)]="courseItem.description"></textarea>
-  </div>
-  <div class="form-group">
-    <label>Date</label>
-    <app-date-input [(date)]="courseItem.date"></app-date-input>
-  </div>
-  <div class="form-group">
-    <label>Duration</label>
-    <app-duration-input [(duration)]="courseItem.length"></app-duration-input>
-  </div>
-  <div class="form-group">
-    <label>Authors</label>
-    <input type="text" class="form-control" placeholder="Authors">
-  </div>
+<div>
+  <form [formGroup]="courseForm" (ngSubmit)="saveItem()">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" id="name" class="form-control" placeholder="Title" formControlName="name">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.maxlength">
+          Name must not be more than 50 characters long.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea class="form-control" placeholder="Description" formControlName="description"></textarea>
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+        <div *ngIf="description.errors.required">
+          Description is required.
+        </div>
+        <div *ngIf="description.errors.maxlength">
+          Description must not be more than 500 characters long.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Date</label>
+      <app-date-input formControlName="date"></app-date-input>
+      <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
+        <div *ngIf="date.errors.required">
+          Date is required.
+        </div>
+        <div *ngIf="date.errors.dateFormat">
+          {{date.errors.dateFormat}}
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Duration</label>
+      <app-duration-input formControlName="length"></app-duration-input>
+      <div *ngIf="length.invalid && (length.dirty || length.touched)" class="alert alert-danger">
+        <div *ngIf="length.errors.required">
+          Duration is required.
+        </div>
+        <div *ngIf="length.errors.intFormat">
+          {{length.errors.intFormat}}
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Authors</label>
+      <app-authors-input formControlName="authors"></app-authors-input>
+    </div>
 
-  <div class="form-row">
-    <button type="cancel" class="btn btn-danger mr-2  " (click)="cancelItem()">Cancel</button>
-    <button type="submit" class="btn btn-primary " (click)="saveItem()">Save</button>
-  </div>
+    <div class="form-row">
+      <button type="cancel" class="btn btn-danger mr-2  " (click)="cancelItem()">Cancel</button>
+      <button type="submit" class="btn btn-primary " [disabled]="!courseForm.valid">Save</button>
+    </div>
+  </form>
 </div>

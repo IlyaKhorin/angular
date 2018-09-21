@@ -3,6 +3,7 @@ import { CourseService } from '../course.service';
 import { ICourseListItem } from '../icourse-list-item';
 import { CourseListItem } from '../course-list-item';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-course-list-item-edit',
@@ -11,29 +12,40 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CourseListItemEditComponent implements OnInit {
 
-  @Input() public courseItem: ICourseListItem;
-  private courseId: number;
+  public courseForm = new FormGroup({
+    id: new FormControl(),
+    name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    date: new FormControl('', [Validators.required]),
+    length: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    description: new FormControl('', [Validators.required, Validators.maxLength(500)]),
+    authors: new FormControl(''),
+    isTopRated: new FormControl()
+  });
 
   constructor(private courseService: CourseService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(async (data) => {
       if (data['id']) {
-        this.courseItem = await this.courseService.getCourseItem(Number(data['id'])).toPromise();
-        if (!this.courseItem) {
+        const courseItem = await this.courseService.getCourseItem(Number(data['id'])).toPromise();
+        if (!courseItem) {
           this.router.navigate(['notFound'], { skipLocationChange: true });
+        } else {
+          this.enrichForm(courseItem);
         }
-      } else {
-        this.courseItem = new CourseListItem(null, null, new Date(Date.now()), null, null, null, null)
       }
     });
   }
 
+  private enrichForm(item: ICourseListItem) {
+    this.courseForm.setValue(item);
+  }
+
   public async saveItem() {
-    if (this.courseItem.id) {
-      await this.courseService.editCourseItem(this.courseItem).toPromise();
+    if (this.courseForm.value.id) {
+      await this.courseService.editCourseItem(this.courseForm.value).toPromise();
     } else {
-      await this.courseService.addCourseItem(this.courseItem).toPromise();
+      await this.courseService.addCourseItem(this.courseForm.value).toPromise();
     }
     this.router.navigate(['courses']);
   }
@@ -41,4 +53,11 @@ export class CourseListItemEditComponent implements OnInit {
   public cancelItem() {
     this.router.navigate(['courses']);
   }
+
+  get name() { return this.courseForm.get('name'); }
+  get date() { return this.courseForm.get('date'); }
+  get length() { return this.courseForm.get('length'); }
+  get description() { return this.courseForm.get('description'); }
+  get authors() { return this.courseForm.get('authors'); }
+  get isTopRated() { return this.courseForm.get('isTopRated'); }
 }
